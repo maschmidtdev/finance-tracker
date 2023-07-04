@@ -74,3 +74,4 @@ end
 gem 'devise'
 gem 'bootstrap', '~> 5.2.0'
 gem 'devise-bootstrap-views'
+gem 'iex-ruby-client'
