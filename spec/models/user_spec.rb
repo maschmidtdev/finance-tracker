@@ -5,8 +5,9 @@ RSpec.describe User, type: :model do
   invalid_email_user = User.new(email: "invalid_email")
   valid_user = User.new(first_name: "test", last_name: "user", email: "test@user.com", password: "password")
 
+
   it "saves valid user" do
-    expect { valid_user.save }.to change(User, :count)
+    expect { create(:user).save }.to change(User, :count)
   end
 
   it "can write full name" do
