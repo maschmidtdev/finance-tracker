@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_05_153312) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_07_083627) do
   create_table "friendships", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "friend_id"
@@ -18,6 +18,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_153312) do
     t.datetime "updated_at", null: false
     t.index ["friend_id"], name: "index_friendships_on_friend_id"
     t.index ["user_id"], name: "index_friendships_on_user_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.string "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_stock_id"
+    t.index ["user_stock_id"], name: "index_notes_on_user_stock_id"
   end
 
   create_table "stocks", force: :cascade do |t|
@@ -53,6 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_153312) do
 
   add_foreign_key "friendships", "users"
   add_foreign_key "friendships", "users", column: "friend_id"
+  add_foreign_key "notes", "user_stocks"
   add_foreign_key "user_stocks", "stocks"
   add_foreign_key "user_stocks", "users"
 end

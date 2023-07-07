@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :note do
-    content { "MyString" }
+    content { "This is some content" }
   end
 end
