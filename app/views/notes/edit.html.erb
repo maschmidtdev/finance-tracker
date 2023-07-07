@@ -1,0 +1,18 @@
+<h1>Edit note for '<%= @stock.ticker %>'</h1>
+
+<div class="row">
+  <div class="col-9">
+
+    <%= form_with(model: @note, url: note_path(@note)) do |f| %>
+      <div class="form-group mb-3" >
+        <%= f.label :content %>
+        <%= f.text_field :content, autofocus: true, class: 'form-control' %>
+      </div>
+
+      <div>
+        <%= f.submit 'Edit Note', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

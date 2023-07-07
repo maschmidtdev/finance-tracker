@@ -6,6 +6,7 @@
         <th scope="col">Ticker</th>
         <th scope="col">Name</th>
         <th scope="col">Price</th>
+        <th scope="col">Notes</th>
         <th scope="col">Actions</th>
       </tr>
       </thead>
@@ -15,6 +16,12 @@
           <th scope="row"><%= stock.ticker %></th>
           <td><%= stock.name %></td>
           <td><%= stock.last_price %></td>
+
+          <td>
+            <% if !stock.notes.empty? %>
+              <%= stock.notes.first.content %>
+            <% end %>
+          </td>
           <td>
             <% if current_user.can_track_stock?(stock.ticker) %>
               <%= link_to 'Add to portfolio', user_stocks_path(user: current_user, ticker: stock.ticker),
@@ -33,7 +40,17 @@
 
             <% if current_user.id == @user.id %>
               <%= link_to 'Remove', user_stock_path(stock), data: { "turbo-method": :delete, turbo_confirm: 'Are you sure?'},
-                            class: "btn btn-sm btn-warning" %>
+                          class: "btn btn-sm btn-warning" %>
+
+              <% if stock.has_note?(current_user.id) %>
+                <%= link_to 'Edit Note', edit_note_path(stock.get_note(current_user.id), stock_id: stock.id), class: "btn btn-sm btn-info" %>
+                <%= link_to 'Delete Note', note_path(stock.get_note(current_user.id)),
+                            data: { turbo_method: :delete, turbo_confirm: "Delete the note?" },
+                            class: "btn btn-sm btn-danger" %>
+              <% else %>
+                <%= link_to 'Add Note', new_note_path(stock_id: stock.id), class: "btn btn-sm btn-success" %>
+              <% end %>
+
             <% end %>
           </td>
         </tr>

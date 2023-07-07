@@ -1,0 +1,20 @@
+<h1>Create note for '<%= @stock.ticker %>'</h1>
+
+<div class="row">
+  <div class="col-9">
+
+    <%= form_with(model: @note, url: notes_path) do |f| %>
+      <div class="form-group mb-3" >
+        <%= f.label :content %>
+        <%= f.text_field :content, autofocus: true, class: 'form-control' %>
+      </div>
+
+      <%= f.hidden_field :stock_id, value: @stock.id %>
+
+      <div>
+        <%= f.submit 'Create Note', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

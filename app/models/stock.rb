@@ -1,6 +1,7 @@
 class Stock < ApplicationRecord
   has_many :user_stocks, dependent: :destroy
   has_many :users, through: :user_stocks
+  has_many :notes, through: :user_stocks
 
   validates :name, :ticker, presence: true
 
@@ -23,4 +24,14 @@ class Stock < ApplicationRecord
   def self.check_db(ticker_symbol)
     where(ticker: ticker_symbol).first
   end
+
+  def has_note?(user_id)
+    us = UserStock.where(user_id: user_id, stock_id: id).first
+    return us.present? && us.note.present?
+  end
+
+  def get_note(user_id)
+    return UserStock.where(user_id: user_id, stock_id: id).first.note
+  end
+
 end

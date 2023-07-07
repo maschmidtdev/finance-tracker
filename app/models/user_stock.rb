@@ -1,5 +1,5 @@
 class UserStock < ApplicationRecord
   belongs_to :user
   belongs_to :stock
-  has_many :notes, dependent: :destroy
+  has_one :note, dependent: :destroy
 end
